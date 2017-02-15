@@ -5,16 +5,17 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _BL 0
-#define _ML 1
+#define _VL 1
 #define _FL 2
-#define _RS 3
+#define _ML 3
+#define _RS 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,--------------------------------------------------------------------------.  ,-----.
    * |   ~|   1|   2|   3|   4|   5|   6|   7|   8|   9|   0|   -|   =|       BS|  |VOLU |
    * |--------------------------------------------------------------------------|  |-----|
-   * |   Tab|   Q|   W|   E|   R|   T|   Y|   U|   I|   O|   P|   [|   ]|      \|  |_ML,D|
+   * |   Tab|   Q|   W|   E|   R|   T|   Y|   U|   I|   O|   P|   [|   ]|      \|  |_VL,D|
    * |--------------------------------------------------------------------------|  `-----'
    * |     Esc|   A|   S|   D|   F|   G|   H|   J|   K|   L|   ;|   '|       Ent|
    * |-----------------------------------------------------------------------------.
@@ -25,12 +26,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_BL] = KEYMAP(
   KC_GRV,  KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,    KC_VOLU, \
-  KC_TAB,   KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC, KC_BSLS,    LT(_ML, KC_VOLD), \
+  KC_TAB,   KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,     KC_LBRC,  KC_RBRC, KC_BSLS,    LT(_VL, KC_VOLD), \
   KC_ESC,    KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN,  KC_QUOT,  KC_ENT,        \
   KC_LSFT,    KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,   KC_SLSH,  KC_RSFT, KC_UP,            \
   KC_LCTL, KC_LGUI, KC_LALT,                                   KC_SPC, KC_RALT,  KC_RCTL,  MO(_FL), KC_LEFT, KC_DOWN, KC_RGHT),
 
-  /* Keymap _ML: Mute Layer
+  /* Keymap _VL: Volume Layer
    * ,--------------------------------------------------------------------------.  ,----.
    * |    |    |    |    |    |    |    |    |    |    |    |    |    |         |  |MUTE|
    * |--------------------------------------------------------------------------|  |----|
@@ -43,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |     |     |     |                             |       |     |  _FL|    |    |    |
    * `----------------------------------------------------------------------------------'
    */
-[_ML] = KEYMAP(
+[_VL] = KEYMAP(
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,          KC_MUTE, \
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                          \
@@ -60,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------------------------.
    * |          |    |    |    |    |    |    |    |    |    |    |           |PGUP|
    * |------------------------------------------------------------------------|----|----.
-   * |     |     |     |                             |       |     |  _FL|HOME|PGDN| END|
+   * |  _ML|     |     |                             |       |     |  _FL|HOME|PGDN| END|
    * `----------------------------------------------------------------------------------'
    */
 [_FL] = KEYMAP(
@@ -68,7 +69,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PSCR,KC_SLCK, KC_PAUS,  KC_TRNS,  KC_TRNS,  KC_TRNS,          KC_TRNS, \
   KC_TRNS, KC_TRNS, MO(_RS),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,                          \
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_PGUP,            \
-  KC_TRNS, KC_TRNS, KC_TRNS,                           KC_TRNS,KC_TRNS,KC_TRNS,MO(_FL),KC_HOME,KC_PGDN,KC_END),
+  MO(_ML), KC_TRNS, KC_TRNS,                           KC_TRNS,KC_TRNS,KC_TRNS,MO(_FL),KC_HOME,KC_PGDN,KC_END),
+
+  /* Keymap _MS: Mouse layer
+   * ,--------------------------------------------------------------------------.  ,----.
+   * |    |    |    |    |    |    |    |    |    |    |    |    |    |         |  |    |
+   * |--------------------------------------------------------------------------|  |----|
+   * |      |    |    |    |   |   |    |    |    |    |    |    |    |       |  |    |
+   * |--------------------------------------------------------------------------|  `----'
+   * |       |    |   |    |    |    |    |    |    |    |    |    |           |
+   * |-----------------------------------------------------------------------------.
+   * |     |    |    |    |    |    |    |    |    |    |    |    |     |     |  MU|
+   * |------------------------------------------------------------------------|----|----.
+   * |  _ML| BTN1| BTN2|                             |       |     |  _FL|  ML|  MD|  MR|
+   * `----------------------------------------------------------------------------------'
+   */
+[_ML] = KEYMAP(
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_MS_U,            \
+  MO(_ML), KC_BTN1, KC_BTN2,                                    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_MS_L,KC_MS_D,KC_MS_R),
 
   /* Keymap _RS: Reset layer
    * ,--------------------------------------------------------------------------.  ,----.
@@ -80,15 +101,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------------------------.
    * |     |    |    |    |    |    |    |    |    |    |    |    |     |     |    |
    * |------------------------------------------------------------------------|----|----.
-   * |     |     |     |     |         |         |     |     |     |  _FL|    |    |    |
+   * |     |     |     |                             |       |     |  _FL|    |    |    |
    * `----------------------------------------------------------------------------------'
    */
 [_RS] = KEYMAP(
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,RESET,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, MO(_RS),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PGUP,            \
-  KC_TRNS, KC_TRNS, KC_TRNS,                                    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PGDN,KC_TRNS),
+  KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,            \
+  KC_TRNS, KC_TRNS, KC_TRNS,                                    KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
