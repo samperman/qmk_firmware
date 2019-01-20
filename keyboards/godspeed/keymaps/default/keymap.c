@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LCTL, KC_LALT, KC_LGUI,         KC_SPC,           MO(_FUNCTIONS), KC_SPC,     KC_RGUI,  KC_RALT
   ),
 
-  /* Default Layer
+  /* Functions Layer
    * ,----------------------------------.        .---------------------------------------.
    * |    |  F1|  F2|  F3|  F4|  F5|  F6|        |  F7|  F8|  F9|  F0| F11| F12|      DEL|
    * |----------------------------------.     .------------------------------------------|
@@ -62,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,                            MO(_FUNCTIONS),  KC_TRNS,     KC_TRNS,  KC_TRNS
   ),
 
-  /* Default Layer
+  /* System Layer
    * ,----------------------------------.        .---------------------------------------.
-   * |_SYS |  F1|  F2|  F3|  F4|  F5|  F6|        |  F7|  F8|  F9|  F0| F11| F12|      DEL|
+   * |_SYS |    |    |    |    |    |    |       |    |    |    |    |    |    |         |
    * |----------------------------------.     .------------------------------------------|
    * |      |    |    |    |RESET|   |        |    |    |    |    |    |    |    |       |
    * |---------------------------------.      .------------------------------------------|
