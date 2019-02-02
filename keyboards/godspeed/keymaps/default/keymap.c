@@ -6,11 +6,11 @@ extern keymap_config_t keymap_config;
 #define _FUNCTIONS 1
 #define _SYS 2
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  FUNCTIONS,
-  SYS
-};
+// enum custom_keycodes {
+//   QWERTY = SAFE_RANGE,
+//   FUNCTIONS,
+//   SYS
+// };
 
 // #define KC_ KC_TRNS
 #define _______ KC_TRNS
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------.      .----------------------------------------.
    * |Shift     |   Z|   X|   C|   V|   B|        |   N|   M|   ,|   .|   /|        Shift|
    * |-----------------------------------.        .--------------------------------------.
-   * | Ctrl|  Gui|  Alt|           Space|        | _Fn|     Space|    Alt|   Gui|
+   * | Ctrl|  Alt|  Gui|           Space|        | _Fn|     Space|    Alt|   Gui|
    * `----------------------------------.        .------------------------------.
    */
 
