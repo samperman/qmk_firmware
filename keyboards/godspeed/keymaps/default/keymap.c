@@ -4,17 +4,24 @@ extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
 #define _FUNCTIONS 1
-#define _SYS 2
+#define _EMOJI 2
+#define _SYS 3
 
-// enum custom_keycodes {
-//   QWERTY = SAFE_RANGE,
-//   FUNCTIONS,
-//   SYS
-// };
+enum custom_keycodes {
+   SHRUG = SAFE_RANGE,
+   TABLE_FLIP,
+   TABLE_BACK,
+   LENNY
+};
 
 // #define KC_ KC_TRNS
 #define _______ KC_TRNS
 
+
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+    set_unicode_input_mode(UC_OSX); // Mac OSX
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -44,11 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------.        .---------------------------------------.
    * |    |  F1|  F2|  F3|  F4|  F5|  F6|        |  F7|  F8|  F9|  F0| F11| F12|      DEL|
    * |----------------------------------.     .------------------------------------------|
-   * |      |Mute|VolU|    |    |    |        |    | PgU|  Up| PgD|    |    |    |       |
+   * |      |Mute|VolU|_EMO|    |    |        |    | PgU|  Up| PgD|    |    |    |       |
    * |---------------------------------.      .------------------------------------------|
-   * |     Esc|    |VolD|    |    |    |        |    |Left|Down| Rgt|    |    |          |
+   * |    CAPS|    |VolD|    |    |    |        |    |Left|Down| Rgt|    |    |          |
    * |-----------------------------------.      .----------------------------------------.
-   * |          |    |    |    |    |    |        |    |    |    |    |    |             |
+   * |          |    |    |    |    |    |        |    |    |Home| End|    |             |
    * |-----------------------------------.        .--------------------------------------.
    * |     |     |     |                |        | _Fn|          |       |      |
    * `----------------------------------.        .------------------------------.
@@ -56,9 +63,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FUNCTIONS] = LAYOUT(
      MO(_SYS), KC_F1,  KC_F2,  KC_F3,   KC_F4,  KC_F5,  KC_F6,             KC_F7,  KC_F8,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-     KC_TRNS,  KC_MUTE,  KC_VOLU,  KC_TRNS,  KC_TRNS,  KC_TRNS,          KC_TRNS,  KC_PGUP,  KC_UP,  KC_PGDN,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
+     KC_TRNS,  KC_MUTE,  KC_VOLU,  MO(_EMOJI),  KC_TRNS,  KC_TRNS,          KC_TRNS,  KC_PGUP,  KC_UP,  KC_PGDN,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
      KC_CAPS,    KC_TRNS,  KC_VOLD,  KC_TRNS,  KC_TRNS,  KC_TRNS,          KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_TRNS, KC_TRNS, KC_TRNS,
-     KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+     KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_HOME, KC_END,  KC_TRNS, KC_TRNS,
+     KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,                            MO(_FUNCTIONS),  KC_TRNS,     KC_TRNS,  KC_TRNS
+  ),
+
+  /* emoji Layer
+   * ,----------------------------------.        .---------------------------------------.
+   * |     |    |    |    |    |    |    |       |    |    |    |    |    |    |         |
+   * |----------------------------------.     .------------------------------------------|
+   * |      |    |    |_EMO|     |FLIP|       |    |    |    |    |    |    |    |       |
+   * |---------------------------------.      .------------------------------------------|
+   * |        |    |Shru|    |    |    |        |    |    |    | LEN|    |    |          |
+   * |-----------------------------------.      .----------------------------------------.
+   * |          |    |    |    |    |BACK|        |    |    |    |    |    |             |
+   * |-----------------------------------.        .--------------------------------------.
+   * |     |     |     |                |        | _Fn|          |       |      |
+   * `----------------------------------.        .------------------------------.
+   */
+
+  [_EMOJI] = LAYOUT(
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_EMOJI),  KC_TRNS,  TABLE_FLIP,          KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
+     KC_CAPS,    KC_TRNS,  SHRUG,  KC_TRNS,  KC_TRNS,  KC_TRNS,          KC_TRNS,  KC_TRNS,  KC_TRNS,  LENNY,  KC_TRNS, KC_TRNS, KC_TRNS,
+     KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  TABLE_BACK,          KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
      KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,                            MO(_FUNCTIONS),  KC_TRNS,     KC_TRNS,  KC_TRNS
   ),
 
@@ -88,5 +117,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case SHRUG:
+      if (record->event.pressed) {
+        // when keycode QMKBEST is pressed
+        send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF"); // ¯\_(ツ)_/¯
+      } else {
+        // when keycode QMKBEST is released
+      }
+      break;
+    case TABLE_FLIP:
+      if (record->event.pressed) {
+         send_unicode_hex_string("0028 256F 00B0 25A1 00B0 FF09 256F FE35 0020 253B 2501 253B"); // (╯°□°）╯︵ ┻━┻
+      } else {
+
+      }
+      break;
+    case TABLE_BACK:
+      if (record->event.pressed) {
+         send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 30CE 0029"); // ┬─┬ノ( º _ ºノ)
+      } else {
+
+      }
+      break;
+   case LENNY:
+     if (record->event.pressed) {
+        send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029"); // ( ͡° ͜ʖ ͡°)
+     } else {
+
+     }
+     break;
+  }
   return true;
 }
