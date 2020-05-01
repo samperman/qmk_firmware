@@ -6,7 +6,8 @@ extern keymap_config_t keymap_config;
 #define _FUNCTIONS 1
 #define _EMOJI 2
 #define _THAI 3
-#define _SYS 4
+#define _RGB 4
+#define _SYS 5
 
 enum custom_keycodes {
   SHRUG = SAFE_RANGE,
@@ -18,7 +19,7 @@ enum custom_keycodes {
   THAI_ZACK,
   THAI_FERN,
   THAI_SAM,
-   THAI_NGOO
+  THAI_NGOO
 };
 
 // #define KC_ KC_TRNS
@@ -58,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,--------------------------------------------------------------------------.
    * |_SYS|  F1|  F2|  F3|  F4|  F5|  F6|  F7|  F8|  F9|  F0| F11| F12|      DEL|
    * |--------------------------------------------------------------------------|
-   * |      |Mute|VolU|_EMO|    |_THAI|    | PgU|  Up| PgD|    |    |    |      |
+   * |      |Mute|VolU|_EMO|_RGB |_THAI|    | PgU|  Up| PgD|    |    |    |      |
    * |--------------------------------------------------------------------------|
    * |    CAPS|    |VolD|    |    |    |    |Left|Down| Rgt|    |    |          |
    * |--------------------------------------------------------------------------|
@@ -70,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FUNCTIONS] = LAYOUT(
 			MO(_SYS), KC_F1,  KC_F2,  KC_F3,   KC_F4,  KC_F5,  KC_F6, KC_F7,  KC_F8,  KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_NO, KC_DEL,
-			KC_TRNS,  KC_MUTE,  KC_VOLU,  MO(_EMOJI),  KC_TRNS,  MO(_THAI), KC_TRNS,  KC_PGUP,  KC_UP,  KC_PGDN,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
+			KC_TRNS,  KC_MUTE,  KC_VOLU,  MO(_EMOJI),  MO(_RGB),  MO(_THAI), KC_TRNS,  KC_PGUP,  KC_UP,  KC_PGDN,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
 			KC_CAPS,    KC_TRNS,  KC_VOLD,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_TRNS, KC_TRNS, KC_TRNS,
 			KC_TRNS,    KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_HOME, KC_END,  KC_TRNS, KC_TRNS, KC_TRNS,
 			KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_FUNCTIONS), KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
@@ -114,9 +115,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_THAI] = LAYOUT(
 		   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-		   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_EMOJI), KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  THAI_SUPA,  KC_TRNS, KC_TRNS, KC_TRNS,
+		   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_THAI), KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  THAI_SUPA,  KC_TRNS, KC_TRNS, KC_TRNS,
 		   KC_CAPS,    KC_TRNS,  THAI_SAM,  KC_TRNS,  THAI_FERN,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
 		   KC_TRNS, KC_TRNS, THAI_ZACK,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, THAI_NGOO,  THAI_MAX,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
+		   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_FUNCTIONS),  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+		   ),
+
+  /* rgb Layer
+   * ,---------------------------------------------------------------------------.
+   * |     |    |    |    |    |    |    |    |    |    |    |    |    |         |
+   * |---------------------------------------------------------------------------|
+   * |      |    |    |    |_RGB |     |    |    |    |    |    |    |    |      |
+   * |---------------------------------------------------------------------------|
+   * |        |    |    |    |    |    |    |    |    |    |    |    |           |
+   * |---------------------------------------------------------------------------|
+   * |          |    |    |    |    |    |    |   |    |    |    |               |
+   * |---------------------------------------------------------------------------|
+   * |     |     |     |        |   _Fn|          |       |      |       |       |
+   * `---------------------------------------------------------------------------.
+   */
+
+  [_RGB] = LAYOUT(
+                   KC_TRNS, KC_TRNS, RGB_VAD, RGB_VAI, RGB_SAD, RGB_SAI, RGB_HUD, RGB_HUI, RGB_RMOD, RGB_MOD, RGB_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+		   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  MO(_RGB),  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
+		   KC_CAPS,    KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
+		   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
 		   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MO(_FUNCTIONS),  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 		   ),
 
